@@ -20,7 +20,22 @@ function cobrinha(){
     }
 }
 
+document.addEventListener('keydown', updateMoviment);
+
+function updateMoviment(event){
+    if(event.keyCode == 37 && move != "right") move = "left";
+    if(event.keyCode == 38 && move != "down") move = "up";
+    if(event.keyCode == 39 && move != "left") move = "right";
+    if(event.keyCode == 40 && move != "up") move = "down";
+
+}
+
 function iniciarJogo(){
+    if(snake[0].x > 15 * box && move == "right") snake[0].x = 0;
+    if(snake[0].x < 0 && move == "left") snake[0].x = 16 * box;
+    if(snake[0].y > 15 * box && move == "down") snake[0].y = 0;
+    if(snake[0].y < 0 && move == "up") snake[0].y = 16 * box;
+
     backGround();
     cobrinha();
 
@@ -41,5 +56,5 @@ function iniciarJogo(){
     snake.unshift(newHead);
 }
 
-let jogo = setInterval(iniciarJogo, 125);
+let jogo = setInterval(iniciarJogo, 150);
 
