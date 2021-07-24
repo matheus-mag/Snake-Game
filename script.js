@@ -7,6 +7,10 @@ snake[0] = {
     y: 8 * box
 } 
 let move = "right";
+let comida = {
+    x: Math.floor(Math.random() * 15 + 1) * box,
+    y: Math.floor(Math.random() * 15 + 1) * box
+}
 
 function backGround(){
     context.fillStyle = "navy";
@@ -30,6 +34,11 @@ function updateMoviment(event){
 
 }
 
+function food(){
+    context.fillStyle = "red";
+    context.fillRect(comida.x, comida.y, box, box);
+}
+
 function iniciarJogo(){
     if(snake[0].x > 15 * box && move == "right") snake[0].x = 0;
     if(snake[0].x < 0 && move == "left") snake[0].x = 16 * box;
@@ -38,6 +47,7 @@ function iniciarJogo(){
 
     backGround();
     cobrinha();
+    food();
 
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
@@ -47,7 +57,13 @@ function iniciarJogo(){
     if(move == "up") snakeY -= box;
     if(move == "down") snakeY += box;
 
-    snake.pop();
+    if(snakeX != comida.x || snakeY != comida.y){
+        snake.pop();
+    }
+    else{
+        comida.x = Math.floor(Math.random() * 15 + 1) * box;
+        comida.y = Math.floor(Math.random() * 15 + 1) * box;
+    }
 
     let newHead = {
         x: snakeX,
