@@ -40,6 +40,16 @@ function food(){
     context.fillRect(comida.x, comida.y, box, box);
 }
 
+function calcFood(){
+    comida.x = Math.floor(Math.random() * 15 + 1) * box;
+    comida.y = Math.floor(Math.random() * 15 + 1) * box;
+    for(i = 0;i<snake.length;i++){
+        if(comida.x == snake[i].x && comida.y == snake[i].y){
+            calcFood();
+        }
+    }
+}
+
 function iniciarJogo(){
 
     if(snake[0].x > 15 * box && move == "right") snake[0].x = 0;
@@ -71,8 +81,8 @@ function iniciarJogo(){
         snake.pop();
     }
     else{
-        comida.x = Math.floor(Math.random() * 15 + 1) * box;
-        comida.y = Math.floor(Math.random() * 15 + 1) * box;
+        calcFood();
+            
     }
 
     let newHead = {
